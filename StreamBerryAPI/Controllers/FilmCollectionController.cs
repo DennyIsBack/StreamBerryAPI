@@ -19,11 +19,11 @@ namespace StreamBerryAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Film>>> ConsultListFilms([FromBody] int PageNumber, [FromBody] int PageSize)
+        public async Task<ActionResult<List<Film>>> ConsultListFilms([FromQuery] int PageNumber = 0, [FromQuery] int PageSize = 20)
         {
             try
             {
-                var Films = await context.ListFilm(PageNumber, PageSize);
+                var Films = await context.ListFilmAsync(PageNumber, PageSize);
 
                 return Ok(Films);
             }
@@ -34,36 +34,47 @@ namespace StreamBerryAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Film>>> ConsultFilmByTitle([FromBody] string title, [FromBody] int PageNumber, [FromBody] int PageSize)
+        public async Task<ActionResult<List<Film>>> ConsultFilmByTitle([FromQuery] string title, [FromQuery] int PageNumber = 0, [FromQuery] int PageSize = 20)
         {
             if (string.IsNullOrEmpty(title))
                 return NotFound("Titulo do filme não foi especificado");
 
-            var Films = await context.ConsultFilmByTitle(title, PageNumber, PageSize);
+            var Films = await context.ConsultFilmByTitleAsync(title, PageNumber, PageSize);
 
 
             return Ok(Films);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Film>>> ConsultFilmByYear([FromBody] int PageNumber, [FromBody] int PageSize, [FromBody] int? Year = null)
+        public async Task<ActionResult<Film>> ConsultFilmByYear([FromQuery] int PageNumber = 0, [FromQuery] int PageSize = 20, [FromQuery] int? Year = null)
         {
             //caso não seja informado o ano, sera utilizado o ano base como filtro de consulta dos 20 primeiros
             if (!Year.HasValue)
                 Year = DateTime.Now.Year;
 
-            var Films = await context.ConsultFilmByYear((int)Year, PageNumber, PageSize);
+            var Films = await context.ConsultFilmByYearAsync((int)Year, PageNumber, PageSize);
 
-            return Ok();
+            return Ok(Films);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Film>>> ConsultFilmByRating([FromBody] int Rating, [FromBody] int PageNumber, [FromBody] int PageSize)
+        public async Task<ActionResult<List<Film>>> ConsultFilmByRating([FromQuery] int Rating, [FromQuery] int PageNumber = 0, [FromQuery] int PageSize = 20)
         {
             if (Rating > 0 && Rating < 5)
-                return await context.ConsultFilmByRating(Rating, PageNumber, PageSize);
+                return await context.ConsultFilmByRatingAsync(Rating, PageNumber, PageSize);
             else
                 return BadRequest("A avaliação deve ser entre 1 e 5");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<FilmVoteAverageByGenre>> VoteAverageByGenreYear([FromQuery] string Genre, [FromQuery] int Year, [FromQuery] int PageNumber = 0, [FromQuery] int PageSize = 20)
+        {
+            if (string.IsNullOrEmpty(Genre) || Year == 0)
+                return BadRequest("Os parametros Genre e Year são obrigatorios");
+
+            var ret = await context.VoteAverageByGenreYearAsync(Genre, Year, PageNumber, PageSize);
+
+            return Ok();
         }
 
         [HttpPut]
@@ -88,9 +99,15 @@ namespace StreamBerryAPI.Controllers
                             return BadRequest("Não é possivel salvar uma avaliação com comentario sem uma classificação selecionada.");
                     }
 
+                if (film.Month < 1 || film.Month > 12)
+                    return BadRequest("O mês informado não é valido.");
+
+                if (film.Year < 1950 || film.Year > DateTime.Now.Year || film.Year.ToString().Length < 3)
+                    return BadRequest("O ano informado não é valido.");
+
                 film.CalculateAverage(); //calcular media do filme antes de gravar no banco
 
-                var Films = await context.UpdateFilm(film);
+                var Films = await context.UpdateFilmAsync(film);
 
 
                 return Ok(Films);
@@ -122,19 +139,25 @@ namespace StreamBerryAPI.Controllers
                             return BadRequest("Não é possivel salvar uma avaliação com comentario sem uma classificação selecionada.");
                     }
 
+                if(film.Month < 1 || film.Month > 12)
+                    return BadRequest("O mês informado não é valido.");
+
+                if (film.Year < 1950 || film.Year > DateTime.Now.Year || film.Year.ToString().Length < 3)
+                    return BadRequest("O ano informado não é valido.");
+
                 var Filter = new Film()
                 {
                     Title = film.Title,
                     Reviews = film.Reviews,
                     Year = film.Year,
-                    GenreId = film.GenreId,
-                    StreamingId = film.StreamingId,
+                    Genre = film.Genre,
+                    Streaming = film.Streaming,
                     Month = film.Month
                 };
 
                 Filter.CalculateAverage(); //calcular media do filme antes de gravar no banco
 
-                var ret = await context.CreateFilm(Filter);
+                var ret = await context.CreateFilmAsync(Filter);
 
                 return Ok(ret);
 
@@ -146,12 +169,12 @@ namespace StreamBerryAPI.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> DeleteFilm([FromBody] int id)
+        public async Task<ObjectResult> DeleteFilm([FromQuery] int id)
         {
-            var ret = await context.Delete(id);
+            var ret = await context.DeleteAsync(id);
 
             if (ret == true)
-                return Ok(ret);
+                return Ok("Deletado com sucesso");
             else
                 return BadRequest($"Não foi encontrado nenhum filme com o ID: {id}");
         }

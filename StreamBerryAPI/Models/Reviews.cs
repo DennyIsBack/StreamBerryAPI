@@ -1,7 +1,10 @@
-﻿namespace StreamBerryAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StreamBerryAPI.Models
 {
     public class Review
     {
+        [Key]
         public int Id { get; set; }
         public int Rating { get; set; }
         public string? Comments { get; set; }

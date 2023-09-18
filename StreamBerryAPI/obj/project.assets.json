@@ -3717,36 +3717,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JoãoVitorLemosReis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\joaov\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JoãoVitorLemosReis\\source\\repos\\StreamBerryAPI\\StreamBerryAPI\\StreamBerryAPI.csproj",
+      "projectUniqueName": "C:\\Users\\joaov\\Source\\Repos\\DennyIsBack\\StreamBerryAPI\\StreamBerryAPI\\StreamBerryAPI.csproj",
       "projectName": "StreamBerryAPI",
-      "projectPath": "C:\\Users\\JoãoVitorLemosReis\\source\\repos\\StreamBerryAPI\\StreamBerryAPI\\StreamBerryAPI.csproj",
-      "packagesPath": "C:\\Users\\JoãoVitorLemosReis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JoãoVitorLemosReis\\source\\repos\\StreamBerryAPI\\StreamBerryAPI\\obj\\",
+      "projectPath": "C:\\Users\\joaov\\Source\\Repos\\DennyIsBack\\StreamBerryAPI\\StreamBerryAPI\\StreamBerryAPI.csproj",
+      "packagesPath": "C:\\Users\\joaov\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joaov\\Source\\Repos\\DennyIsBack\\StreamBerryAPI\\StreamBerryAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\JoãoVitorLemosReis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
+        "C:\\Users\\joaov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.devexpress.com/uYP3jJjqgJewTHqf29pMeNDwb1CjtgHYUPclNCKiusH7Az78IZ/api": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -3808,7 +3799,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

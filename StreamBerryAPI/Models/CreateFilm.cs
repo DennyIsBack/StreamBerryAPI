@@ -10,14 +10,13 @@ namespace StreamBerryAPI.Models
         [Required]
         public List<Review>? Reviews { get; set; }
         [Required]
-        public List<int>? GenreId { get; set; }
-        [Required]
-        public List<int>? StreamingId { get; set; }
+        public List<GenericModel>? Genre { get; set; }
+        public List<GenericModel>? Streaming { get; set; }
         [Required]
         public int Month { get; set; }
         [Required]
         public int Year { get; set; }
-
+        public int VoteAverage { get; set; }
         public void CalculateAverage()
         {
             int Average = 0;
@@ -32,8 +31,13 @@ namespace StreamBerryAPI.Models
             }
             else
                 VoteAverage = 0;
+        }
 
-
+        public CreateFilm()
+        {
+            Reviews = new List<Review>();
+            Streaming = new List<GenericModel>();
+            Genre = new List<GenericModel>();
         }
     }
 }

@@ -11,7 +11,7 @@
     {
 
         public int FilterByYear { get; set; }
-        public List<TotalByYear> TotalYear {get;set;}
+        public List<TotalByYear>? TotalYear {get;set;}
 
         public List<T>? Data { get; set; }
 

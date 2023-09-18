@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\StreamBerryAPI"
+    "\\StreamBerryAPI",
+    "\\StreamBerryAPI\\Repository"
   ],
+  "SelectedNode": "\\StreamBerryAPI\\Repository\\FilmRepository.cs",
   "PreviewInSolutionExplorer": false
 }

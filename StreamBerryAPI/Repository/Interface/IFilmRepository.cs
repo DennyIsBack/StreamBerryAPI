@@ -4,18 +4,20 @@ namespace StreamBerryAPI.Repository.Interface
 {
     public interface IFilmRepository
     {
-        Task<RetPaged<Film>> ListFilm(int skip = 0, int take = 20);
+        Task<RetPaged<Film>> ListFilmAsync(int pageNumber, int PageSize);
 
-        Task<List<Film>> ConsultFilmByTitle(string Title, int pageNumber = 0, int PageSize = 20);
+        Task<List<Film>> ConsultFilmByTitleAsync(string Title, int pageNumber = 0, int PageSize = 20);
 
-        Task<List<Film>> ConsultFilmByRating(int Average, int pageNumber = 0, int PageSize = 20);
+        Task<List<Film>> ConsultFilmByRatingAsync(int Average, int pageNumber = 0, int PageSize = 20);
 
-        Task<GenericModelByYear<Film>> ConsultFilmByYear(int Year, int pageNumber = 0, int PageSize = 20);
+        Task<GenericModelByYear<Film>> ConsultFilmByYearAsync(int Year, int pageNumber = 0, int PageSize = 20);
 
-        Task<Film> UpdateFilm(CreateFilm film);
+        Task<FilmVoteAverageByGenre> VoteAverageByGenreYearAsync(string Genre, int Year, int pageNumber = 0, int PageSize = 20);
 
-        Task<Film> CreateFilm(Film film);
+        Task<Film> UpdateFilmAsync(CreateFilm film);
 
-        Task<bool> Delete(int id);
+        Task<Film> CreateFilmAsync(Film film);
+
+        Task<bool> DeleteAsync(int id);
     }
 }
