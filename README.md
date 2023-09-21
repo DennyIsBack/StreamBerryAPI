@@ -44,7 +44,7 @@ Projeto desenvolvido para o desafio da empresa Keyworks de dev II. O intuito do 
 
 ![VoteAverageByGenreYear](StreamBerryAPI/images/AllVoteAveragebyGenreYear.png)
 <br/>
-`Retorno` : Média das avaliações de todos os filmes com base no genero e ano.
+`Retorno` : Média das avaliações de todos os filmes contendo seus dados com base no genero e ano.
 
 ![UpdateFilm](StreamBerryAPI/images/UpdateFilm.png)
 <br/>
