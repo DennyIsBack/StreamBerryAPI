@@ -77,6 +77,14 @@ namespace StreamBerryAPI.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<AverageByGenreYear>>> AllVoteAveragebyGenreYear()
+        {
+            var ret = await context.AllVoteAveragebyGenreYear();
+
+            return Ok(ret);
+        }
+
         [HttpPut]
         public async Task<ActionResult<Film>> UpdateFilm([FromBody] CreateFilm film)
         {
@@ -89,6 +97,7 @@ namespace StreamBerryAPI.Controllers
 
                 return BadRequest(errorMessages);
             }        
+            
 
             try
             {
@@ -132,9 +141,20 @@ namespace StreamBerryAPI.Controllers
             }
             try
             {
+                if (film.Id != 0)
+                {
+                    return BadRequest("Campo id do filme não precisa ser informado");
+                }
+
+                if(film.VoteAverage != 0)
+                    return BadRequest("Campo VoteAverage do filme não precisa ser informado");
+
                 if (film.Reviews != null && film.Reviews.Any())
                     foreach (var review in film.Reviews)
                     {
+                        if(review.FilmId != 0)
+                            return BadRequest("Campo FilmId do review não precisa ser informado");
+
                         if (!ValidReview(review))
                             return BadRequest("Não é possivel salvar uma avaliação com comentario sem uma classificação selecionada.");
                     }

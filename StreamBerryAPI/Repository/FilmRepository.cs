@@ -113,6 +113,27 @@ namespace StreamBerryAPI.Repository
 
             return ret;
         }
+        public async Task<List<AverageByGenreYear>> AllVoteAveragebyGenreYear()
+        {
+            var query = _dbContext.Film
+                        .Include(f => f.Genre)
+                        .AsNoTracking();
+
+            var Data = await query
+                                .SelectMany(f => f.Genre.Select(g => new { Year = f.Year, Genre = g.Description, Rating = f.VoteAverage }))
+                                .GroupBy(g => new { g.Year, g.Genre })
+                                .Select(group => new AverageByGenreYear
+                                {
+                                    Year = group.Key.Year,
+                                    Genre = group.Key.Genre,
+                                    AverageRating = (int)Math.Round(group.Average(g => g.Rating))
+                                })
+                                .ToListAsync();
+
+            Data = Data.OrderByDescending(x => x.Year).ToList();
+
+            return Data;
+        }
 
         public async Task<List<Film>> ConsultFilmByRatingAsync(int Average, int pageNumber = 0, int PageSize = 20)
         {

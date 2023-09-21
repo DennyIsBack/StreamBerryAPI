@@ -14,6 +14,8 @@ namespace StreamBerryAPI.Repository.Interface
 
         Task<FilmVoteAverageByGenre> VoteAverageByGenreYearAsync(string Genre, int Year, int pageNumber = 0, int PageSize = 20);
 
+        Task<List<AverageByGenreYear>> AllVoteAveragebyGenreYear();
+
         Task<Film> UpdateFilmAsync(CreateFilm film);
 
         Task<Film> CreateFilmAsync(Film film);
