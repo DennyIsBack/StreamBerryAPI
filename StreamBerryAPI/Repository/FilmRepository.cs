@@ -120,12 +120,19 @@ namespace StreamBerryAPI.Repository
                         .AsNoTracking();
 
             var Data = await query
-                                .SelectMany(f => f.Genre.Select(g => new { Year = f.Year, Genre = g.Description, Rating = f.VoteAverage }))
+                                .SelectMany(f => f.Genre.Select(g => new { Year = f.Year, Genre = g.Description, Rating = f.VoteAverage, film = f }))
                                 .GroupBy(g => new { g.Year, g.Genre })
                                 .Select(group => new AverageByGenreYear
                                 {
                                     Year = group.Key.Year,
                                     Genre = group.Key.Genre,
+                                    Data = query
+                                            .Where(f => f.Year == group.Key.Year && f.Genre.Any(g => g.Description == group.Key.Genre))
+                                            .Include(x => x.Genre)
+                                            .Include(x => x.Streaming)
+                                            .Include(x => x.Reviews)
+                                            .OrderBy(x => x.Title)
+                                            .ToList(),
                                     AverageRating = (int)Math.Round(group.Average(g => g.Rating))
                                 })
                                 .ToListAsync();
