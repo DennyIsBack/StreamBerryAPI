@@ -1,6 +1,6 @@
 # StreamBerryAPI
 
-Projeto desenvolvido para o desafio da empresa Keyworks de dev II. O intuito do StreamBerry é ser um sistema de gestão de acervo de filmes para facilitar a produção de novas obras.
+O intuito do projeto desenvolvido "StreamBerry" é ser um sistema de gestão de acervo de filmes para facilitar a produção de novas obras.
 ## ✔️ Tecnologias utilizadas
 
 - ``Net 6.0``
